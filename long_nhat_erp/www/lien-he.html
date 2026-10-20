@@ -1,0 +1,39 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<form class="ln-form" id="contact-form">
+  <h2>Liên hệ với chúng tôi</h2>
+  <label>Họ tên</label>
+  <input class="form-control" name="full_name" required>
+  <label>Email</label>
+  <input class="form-control" type="email" name="email" required>
+  <label>Số điện thoại</label>
+  <input class="form-control" name="phone">
+  <label>Nội dung</label>
+  <textarea class="form-control" name="message" rows="4" required></textarea>
+  <button class="btn btn-primary" style="margin-top:18px" type="submit">Gửi liên hệ</button>
+  <div id="result"></div>
+</form>
+<script>
+(function () {
+  var form = document.getElementById("contact-form");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    frappe.call({
+      method: "long_nhat_erp.api.submit_contact",
+      args: {
+        full_name: form.full_name.value, email: form.email.value,
+        phone: form.phone.value, message: form.message.value
+      },
+      freeze: true,
+      callback: function (r) {
+        if (!r.message) return;
+        var box = document.getElementById("result");
+        box.className = "ln-ok";
+        box.textContent = "Cảm ơn bạn, chúng tôi đã nhận liên hệ (mã " + r.message.name + ") và sẽ phản hồi sớm.";
+        form.reset();
+      }
+    });
+  });
+})();
+</script>
+{% endblock %}

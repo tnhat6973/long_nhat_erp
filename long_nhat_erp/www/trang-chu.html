@@ -1,0 +1,21 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="ln-hero">
+  <h1>Gia dụng thông minh, giá tốt mỗi ngày</h1>
+  <p>Công ty TNHH XNK Long Nhật Logistics &amp; Trading nhập khẩu trực tiếp thiết bị gia dụng hiện đại, tiện lợi, giá thành rẻ.</p>
+  <a class="btn btn-primary" href="/dat-hang">Đặt mua ngay</a>
+  <a class="btn btn-default" href="/lien-he">Liên hệ</a>
+</div>
+<h2>Sản phẩm nổi bật</h2>
+<div class="ln-grid">
+  {% for it in items %}
+  <div class="ln-card">
+    <span class="ln-badge">{{ it.item_code }}</span>
+    <h3>{{ it.item_name }}</h3>
+    <p>{{ (it.description or "") | striptags }}</p>
+    <div class="ln-price">{{ it.price_text }}</div>
+    <a class="btn btn-primary btn-sm" href="/dat-hang?item={{ it.item_code }}">Đặt mua</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

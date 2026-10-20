@@ -25,11 +25,13 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/long_nhat_erp/css/long_nhat_erp.css"
+app_include_css = "/assets/long_nhat_erp/css/long_nhat.css"
+app_logo_url = "/assets/long_nhat_erp/images/logo.png"
+
 # app_include_js = "/assets/long_nhat_erp/js/long_nhat_erp.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/long_nhat_erp/css/long_nhat_erp.css"
+web_include_css = "/assets/long_nhat_erp/css/long_nhat_web.css"
 # web_include_js = "/assets/long_nhat_erp/js/long_nhat_erp.js"
 
 # include custom scss in every website theme (without file extension ".scss")

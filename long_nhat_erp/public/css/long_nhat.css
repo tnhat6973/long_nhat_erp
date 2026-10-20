@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-stack: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --primary: #1e3a8a;
+  --primary-color: #1e3a8a;
+  --btn-primary: #1e3a8a;
+  --bg-color: #f6f7fb;
+  --border-color: #e6e8ef;
+  --border-radius: 10px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 14px;
+  --lnl-accent: #d4a017;
+}
+
+body { background: var(--bg-color); font-family: var(--font-stack); }
+
+.navbar, header.navbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  box-shadow: 0 1px 8px rgba(15, 23, 42, 0.05);
+}
+.navbar .nav-link, .navbar .navbar-brand { color: #1f2937 !important; }
+
+.btn { border-radius: 8px; font-weight: 500; }
+.btn-primary {
+  background: linear-gradient(135deg, #1e3a8a, #2f55c4) !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
+  color: #fff !important;
+}
+.btn-primary:hover { filter: brightness(1.08); }
+
+.widget, .frappe-card, .form-layout {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+}
+.form-control, .input-with-feedback {
+  border-radius: 8px !important;
+  background: #f8f9fc;
+}
+.form-control:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.12) !important;
+}
+
+.standard-sidebar-item.selected, .sidebar-item.selected {
+  background: #eaf0ff !important;
+  border-radius: 8px;
+}
+.standard-sidebar-item.selected a, .sidebar-item.selected a {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+.page-head { border-bottom: 1px solid var(--border-color); background: #fff; }
+.page-title .title-text { font-weight: 700; letter-spacing: -0.01em; }
+.nav-tabs .nav-link.active {
+  color: var(--primary);
+  border-bottom: 2px solid var(--lnl-accent);
+}

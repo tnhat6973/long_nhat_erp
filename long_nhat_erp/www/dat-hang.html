@@ -1,0 +1,60 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<form class="ln-form" id="order-form">
+  <h2>Đặt hàng</h2>
+  <label>Sản phẩm</label>
+  <select class="form-control" name="item" id="item">
+    {% for it in items %}
+    <option value="{{ it.item_code }}" data-rate="{{ it.standard_rate }}" {% if it.item_code == selected %}selected{% endif %}>{{ it.item_code }} - {{ it.item_name }}</option>
+    {% endfor %}
+  </select>
+  <label>Số lượng</label>
+  <input class="form-control" type="number" name="qty" id="qty" value="1" min="1" max="1000">
+  <p class="text-muted" style="margin-top:8px">Tạm tính: <b id="total"></b></p>
+  <label>Họ tên</label>
+  <input class="form-control" name="customer_name" required>
+  <label>Số điện thoại</label>
+  <input class="form-control" name="phone" required>
+  <label>Địa chỉ giao hàng</label>
+  <textarea class="form-control" name="address" rows="2" required></textarea>
+  <label>Ghi chú</label>
+  <textarea class="form-control" name="note" rows="2"></textarea>
+  <button class="btn btn-primary" style="margin-top:18px" type="submit">Gửi đơn hàng</button>
+  <div id="result"></div>
+</form>
+<script>
+(function () {
+  var form = document.getElementById("order-form");
+  var item = document.getElementById("item");
+  var qty = document.getElementById("qty");
+  var total = document.getElementById("total");
+  function fmt(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " ₫"; }
+  function update() {
+    var rate = parseFloat(item.options[item.selectedIndex].getAttribute("data-rate")) || 0;
+    total.textContent = fmt(rate * (parseInt(qty.value, 10) || 0));
+  }
+  item.addEventListener("change", update);
+  qty.addEventListener("input", update);
+  update();
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    frappe.call({
+      method: "long_nhat_erp.api.place_order",
+      args: {
+        customer_name: form.customer_name.value, phone: form.phone.value,
+        address: form.address.value, item: form.item.value,
+        qty: form.qty.value, note: form.note.value
+      },
+      freeze: true,
+      callback: function (r) {
+        if (!r.message) return;
+        var box = document.getElementById("result");
+        box.className = "ln-ok";
+        box.textContent = "Đặt hàng thành công. Mã đơn: " + r.message.name + ", thành tiền: " + fmt(r.message.amount);
+        form.reset(); update();
+      }
+    });
+  });
+})();
+</script>
+{% endblock %}
